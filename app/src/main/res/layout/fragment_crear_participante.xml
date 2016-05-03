@@ -1,0 +1,180 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#644F7A"
+            android:gravity="center">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:text="@string/escoge"/>
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F9F9F9"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:id="@+id/personaje1"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/personaje1"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/personaje2"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/personaje2"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/personaje3"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/personaje3"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="0.9">
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="right"
+                        android:layout_weight="2">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:layout_gravity="right"
+                            android:id="@+id/personaje4"
+                            android:src="@drawable/personaje4"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="2">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:id="@+id/personaje5"
+                            android:src="@drawable/personaje5"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_weight="0.9">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="30dp"
+                    android:gravity="center"
+                    android:background="@drawable/sombracrearpersonaje"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/nombres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ingresa tu nombre"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="22sp"
+                        android:padding="15dp"/>
+
+                    <Button
+                        android:id="@+id/guardar_"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:text="Guardar"
+                        android:paddingTop="10dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="30dp"
+                        android:paddingLeft="30dp"
+                        android:textAllCaps="false"
+                        android:textColor="#FFF"
+                        android:background="#573F6F"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        
+        
+    </LinearLayout>
+    
+    
+</LinearLayout>

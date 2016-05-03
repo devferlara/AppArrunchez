@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="arrunchez.baumsoft.con.lafamiliaarrunchez.bluetooth">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/backbluetooth"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activar_bluetooth"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Antes de empezar por favor activar el Bluetooth de tu teléfono."
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/activar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="Activar Bluetooth"
+            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:background="#573F6F"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buscando"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Oprime buscar y luego enlaza el dispositivo en cuestión."
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/buscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="Buscar dispositivos"
+            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:textAllCaps="false"
+            android:textColor="#FFF"
+            android:background="#573F6F"/>
+
+        <ListView
+            android:id="@+id/lv_paired"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:cacheColorHint="#00000000" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/no_puedes"
+        android:orientation="vertical">
+        <TextView
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Tu teléfono no dispone de Bluetooth, lamentablemente no puedes usar la aplicación."
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

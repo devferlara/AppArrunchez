@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/inicio"
+            android:icon="@drawable/inicio"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/tesoro"
+            android:icon="@drawable/familia"
+            android:title="El tesoro de la familia Arrunchez" />
+        <item
+            android:id="@+id/instrucciones"
+            android:icon="@drawable/instrucciones"
+            android:title="Instrucciones del juego" />
+        <item
+            android:id="@+id/alimentacion"
+            android:icon="@drawable/alimentacion"
+            android:title="Alimentacion saludable" />
+        <item
+            android:id="@+id/como_lavar"
+            android:icon="@drawable/lavardientes"
+            android:title="Como lavar los dientes" />
+        <item
+            android:id="@+id/caries"
+            android:icon="@drawable/caries"
+            android:title="La Caries" />
+        <item
+            android:id="@+id/calendario"
+            android:icon="@drawable/calendario"
+            android:title="Calendario" />
+        <item
+            android:id="@+id/creditos"
+            android:icon="@drawable/creditos"
+            android:title="Créditos" />
+    </group>
+
+</menu>

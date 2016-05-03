@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">La familia Arrunchez</string>
+    <string name="navigation_drawer_open">Abrir Menú</string>
+    <string name="navigation_drawer_close">Cerrar Menú</string>
+    <string name="action_settings">Ayuda</string>
+    <string name="title_activity_splash">Splashscreen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="escoge">Escoge tu personaje</string>
+    <string name="alimentacion">Alimentación del día</string>
+    <string name="title_activity_cuestionario">Mamá</string>
+    <string name="section_format">Mamá</string>
+    <string name="telavaste">¿Te lavaste bien los dientes?</string>
+</resources>
