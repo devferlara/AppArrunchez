@@ -1,9 +1,6 @@
 package arrunchez.baumsoft.con.lafamiliaarrunchez.gendao;
 
-
 import android.database.sqlite.SQLiteDatabase;
-
-
 
 /**
  * Created by dayessi on 7/04/16.

@@ -17,21 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.katana;
+
 public class cuento extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuento);
-
-        LinearLayout leer = (LinearLayout) findViewById(R.id.leercuento);
-        leer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(cuento.this, cuentouno.class);
-                startActivity(mainIntent);
-            }
-        });
 
 
         Bundle extras = getIntent().getExtras();
@@ -56,8 +49,8 @@ public class cuento extends AppCompatActivity {
 
             final Intent intento = new Intent(cuento.this, cuentouno.class);
 
-            System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-            Log.d("Dias pasados en cuento", " - " + dias);
+            //System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+            //Log.d("Dias pasados en cuento", " - " + dias);
             if(dias == 0){
                 intento.putExtra("fecha", "En un lugar no muy lejano vivía una familia de apellido Arrunchez, conformada por la mamá Alegría, el papá Prudencio,  su pequeño hijo Fantástico, Estrella la bebé,  y  la abuela, Consideración.\n" +
                         "Todos los días,  la familia Arrunchez se levantaba con la esperanza de encontrar la llave para abrir el tesoro que un Rey les había regalado.\n" +
@@ -103,8 +96,8 @@ public class cuento extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    startActivityForResult(intento, 2);
-                    finish();
+                    startActivityForResult(intento, 1);
+                    //finish();
 
                 }
             });
@@ -124,24 +117,26 @@ public class cuento extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
 
-            Bundle bundle = data.getExtras();
-            String estado = bundle .getString("estado");
+        Log.d("Request code", " " + requestCode);
 
-            if(estado.equals("si")){
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("estado", "si");
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
-            } else {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("estado", "no");
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("estado");
+                katana kata = new katana();
+                if(result.equals("si")){
+                    kata.saveScore(cuento.this, 3, "3");
+                } else {
+                    kata.saveScore(cuento.this, 3, "6");
+                }
+                //kata = null;
+                Log.d("Resultado", result);
             }
-
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
         }
+
 
     }
 }

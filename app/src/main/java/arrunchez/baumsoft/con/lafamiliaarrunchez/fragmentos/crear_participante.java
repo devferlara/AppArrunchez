@@ -209,7 +209,7 @@ public class crear_participante extends Fragment {
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     } else {
-                        Toast.makeText(getActivity(), "Ingresa el nomnre antes de guardar.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Ingresa el nombre antes de guardar.", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

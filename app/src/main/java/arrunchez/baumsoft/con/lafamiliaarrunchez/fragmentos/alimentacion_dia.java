@@ -21,19 +21,13 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import arrunchez.baumsoft.con.lafamiliaarrunchez.Inicio;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
-import arrunchez.baumsoft.con.lafamiliaarrunchez.adapters.calificacion_alimentos_adapter;
-import arrunchez.baumsoft.con.lafamiliaarrunchez.enviar_bluetooth;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Calificaciones;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.CalificacionesDao;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Calimentos;
@@ -41,9 +35,6 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.CalimentosDao;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoSession;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
-import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.calcular_alimentacion;
-import arrunchez.baumsoft.con.lafamiliaarrunchez.models.ladientes;
-import arrunchez.baumsoft.con.lafamiliaarrunchez.models.model_alimentos;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.puntuacion_dia_alimentacion;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 import de.greenrobot.dao.query.Join;
