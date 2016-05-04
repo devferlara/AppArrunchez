@@ -46,7 +46,6 @@ public class calendario extends Fragment {
 
     TimePickerDialog.OnTimeSetListener t;
 
-    AlertDialog.Builder builder;
 
     private ViewPager viewPager;
 
@@ -60,46 +59,7 @@ public class calendario extends Fragment {
         ((Inicio) getActivity()).getSupportActionBar().setTitle("Calendario");
 
 
-        builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater i = (LayoutInflater) getActivity().getLayoutInflater();
-        final View v = (View) i.inflate(R.layout.form_calendar, null);
-        builder.setView(v);
-        // Add the buttons
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                EditText nombres = (EditText) v.findViewById(R.id.nombre);
-                EditText direccion = (EditText) v.findViewById(R.id.direccion);
-                EditText comentarios = (EditText) v.findViewById(R.id.comentarios);
 
-                long calId = edientes_utils.getCalendarId(getActivity());
-
-                if (calId != -1) {
-                    ContentValues values = new ContentValues();
-                    values.put(CalendarContract.Events.DTSTART, dateAndTime.getTimeInMillis());
-                    values.put(CalendarContract.Events.DTEND, dateAndTime.getTimeInMillis());
-
-                    values.put(CalendarContract.Events.TITLE, nombres.getText().toString());
-                    values.put(CalendarContract.Events.CALENDAR_ID, calId);
-                    values.put(CalendarContract.Events.EVENT_TIMEZONE, dateAndTime.getTimeZone().getDisplayName());
-                    values.put(CalendarContract.Events.DESCRIPTION, comentarios.getText().toString());
-                    values.put(CalendarContract.Events.EVENT_LOCATION, direccion.getText().toString());
-
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_DENIED) {
-                        Uri uri =
-                                getActivity().getContentResolver().
-                                        insert(CalendarContract.Events.CONTENT_URI, values);
-                        long eventId = new Long(uri.getLastPathSegment());
-
-                        setReminder(getActivity().getContentResolver(), eventId, 60);
-                    }
-                }
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // pass
-            }
-        });
 
 
         t = new TimePickerDialog.OnTimeSetListener() {
@@ -108,6 +68,46 @@ public class calendario extends Fragment {
                     dateAndTime.set(Calendar.HOUR_OF_DAY, h);
                     dateAndTime.set(Calendar.MINUTE, m);
 
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    LayoutInflater i = (LayoutInflater) getActivity().getLayoutInflater();
+                    final View v = (View) i.inflate(R.layout.form_calendar, null);
+                    builder.setView(v);
+                    // Add the buttons
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            EditText nombres = (EditText) v.findViewById(R.id.nombre);
+                            EditText direccion = (EditText) v.findViewById(R.id.direccion);
+                            EditText comentarios = (EditText) v.findViewById(R.id.comentarios);
+
+                            long calId = edientes_utils.getCalendarId(getActivity());
+
+                            if (calId != -1) {
+                                ContentValues values = new ContentValues();
+                                values.put(CalendarContract.Events.DTSTART, dateAndTime.getTimeInMillis());
+                                values.put(CalendarContract.Events.DTEND, dateAndTime.getTimeInMillis());
+
+                                values.put(CalendarContract.Events.TITLE, nombres.getText().toString());
+                                values.put(CalendarContract.Events.CALENDAR_ID, calId);
+                                values.put(CalendarContract.Events.EVENT_TIMEZONE, dateAndTime.getTimeZone().getDisplayName());
+                                values.put(CalendarContract.Events.DESCRIPTION, comentarios.getText().toString());
+                                values.put(CalendarContract.Events.EVENT_LOCATION, direccion.getText().toString());
+
+                                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_DENIED) {
+                                    Uri uri =
+                                            getActivity().getContentResolver().
+                                                    insert(CalendarContract.Events.CONTENT_URI, values);
+                                    long eventId = new Long(uri.getLastPathSegment());
+
+                                    setReminder(getActivity().getContentResolver(), eventId, 60);
+                                }
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // pass
+                        }
+                    });
                     builder.create().show();
                 }
             }
