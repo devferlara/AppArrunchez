@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -29,12 +30,14 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import arrunchez.baumsoft.con.lafamiliaarrunchez.Inicio;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.adapters.cdientes_adapter;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.EventDecorator;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.edientes_utils;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.models.model_cdientes;
 
@@ -48,6 +51,8 @@ public class calendario extends Fragment {
 
 
     private ViewPager viewPager;
+
+    private HashSet<CalendarDay> dates = new HashSet<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,6 +133,7 @@ public class calendario extends Fragment {
             }
         });
 
+
         String[] proj = new String[]{
                 CalendarContract.Events._ID,
                 CalendarContract.Events.DTSTART,
@@ -151,8 +157,15 @@ public class calendario extends Fragment {
                 calendar.setTimeInMillis(cursor.getLong(1));
 
                 acd.add(new model_cdientes(cursor.getLong(0), calendar.getTime().toString(), cursor.getString(2)));
+                dates.add(new CalendarDay(calendar));
+
             } while (cursor.moveToNext());
+
+
+
         }
+        calendarView.addDecorator(new EventDecorator(Color.BLUE, dates));
+
         viewPager.setAdapter(new cdientes_adapter(getActivity(), acd));
 
 
