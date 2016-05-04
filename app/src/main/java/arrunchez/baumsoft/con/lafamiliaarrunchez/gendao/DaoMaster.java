@@ -27,6 +27,8 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
+
+
         AvatarsDao.createTable(db, ifNotExists);
         AlimentosDao.createTable(db, ifNotExists);
         ParticipantesDao.createTable(db, ifNotExists);
@@ -36,7 +38,7 @@ public class DaoMaster extends AbstractDaoMaster {
         Last_score_foodsDao.createTable(db, ifNotExists);
         Last_score_teethDao.createTable(db, ifNotExists);
         Last_score_taleDao.createTable(db, ifNotExists);
-        new Seeds().seedsAllTables(db, false);
+
     }
     
     /** Drops underlying database table using DAOs. */

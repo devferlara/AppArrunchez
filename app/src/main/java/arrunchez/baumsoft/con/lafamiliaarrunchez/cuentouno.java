@@ -2,6 +2,7 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -20,10 +21,13 @@ public class cuentouno extends AppCompatActivity {
         setContentView(R.layout.activity_cuentouno);
 
         Bundle extras = getIntent().getExtras();
-        String cadena = extras.getString("fecha");
+        String cuento = extras.getString("cuento");
+        String cuento2 = extras.getString("cuento");
 
         TextView texto = (TextView) findViewById(R.id.cuento_texto);
-        texto.setText(cadena);
+        TextView texto2 = (TextView) findViewById(R.id.cuento_texto2);
+        texto.setText(cuento);
+        texto2.setText(cuento2);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -40,6 +44,10 @@ public class cuentouno extends AppCompatActivity {
 
             }
         });
+
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Futura.ttf");
+        texto.setTypeface(myTypeface);
+        texto2.setTypeface(myTypeface);
 
     }
 
