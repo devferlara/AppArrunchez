@@ -105,8 +105,8 @@ public class participantes extends Fragment {
         map.put("hada", R.drawable.personaje5);
 
         int cadena = 0;
-            int[] textos = {R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5};
-            int[] personajes = {R.id.per1, R.id.per2, R.id.per3, R.id.per4, R.id.per5};
+        int[] textos = {R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5};
+        int[] personajes = {R.id.per1, R.id.per2, R.id.per3, R.id.per4, R.id.per5};
         for(Participantes  p : l) {
 
             ImageView imagen = (ImageView) rootView.findViewById(personajes[cadena]);

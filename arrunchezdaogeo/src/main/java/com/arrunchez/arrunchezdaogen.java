@@ -61,6 +61,19 @@ public class arrunchezdaogen {
         Property calificacion_id_dos = calidientes.addLongProperty("calificacion_id").notNull().getProperty();
         calidientes.addToOne(calificaciones, calificacion_id_dos);
 
+        Entity last_score_foods = schema.addEntity("Last_score_foods");
+        last_score_foods.addIdProperty().autoincrement();
+        last_score_foods.addStringProperty("score");
+
+        Entity last_score_teeth = schema.addEntity("Last_score_teeth");
+        last_score_teeth.addIdProperty().autoincrement();
+        last_score_teeth.addStringProperty("score");
+
+        Entity last_score_tale = schema.addEntity("Last_score_tale");
+        last_score_tale.addIdProperty().autoincrement();
+        last_score_tale.addStringProperty("score");
+
+
     }
 }
 
