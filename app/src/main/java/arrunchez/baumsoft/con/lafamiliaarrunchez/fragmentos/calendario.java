@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
@@ -62,10 +63,6 @@ public class calendario extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
 
         ((Inicio) getActivity()).getSupportActionBar().setTitle("Calendario");
-
-
-
-
 
         t = new TimePickerDialog.OnTimeSetListener() {
             public void onTimeSet(TimePicker timePicker, int h, int m) {
@@ -119,6 +116,7 @@ public class calendario extends Fragment {
         };
 
         calendarView = (MaterialCalendarView) view.findViewById(R.id.calendarView);
+
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
