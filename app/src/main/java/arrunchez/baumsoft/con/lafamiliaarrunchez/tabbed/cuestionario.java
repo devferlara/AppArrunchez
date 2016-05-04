@@ -56,9 +56,6 @@ public class cuestionario extends AppCompatActivity {
     private static final int REQUEST_GET_MAP_LOCATION = 0;
     private Toolbar toolbar;
     private TabLayout tabLayout;
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private CustomViewPager mViewPager;
     private manejador_arduino manejador;
 
@@ -85,6 +82,43 @@ public class cuestionario extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+                mViewPager.setCurrentItem(tab.getPosition());
+                switch (tab.getPosition()){
+
+                    case 0:
+                        colorToolbar(new ColorDrawable(0xFF7A41A4));
+                        break;
+                    case 1:
+                        colorToolbar(new ColorDrawable(0xFF7A41A4));
+                        break;
+                    case 2:
+                        colorToolbar(new ColorDrawable(0xFF397BA2));
+                        break;
+                    case 3:
+                        colorToolbar(new ColorDrawable(0xFFFF8C09));
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
+            }
+        });
 
 
         int[] imagenes = {R.drawable.tabuno, R.drawable.tabdos, R.drawable.tabtres, R.drawable.tabcuatro};

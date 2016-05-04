@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.*;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Seeds;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 
 public class Inicio extends AppCompatActivity
@@ -112,6 +113,8 @@ public class Inicio extends AppCompatActivity
             setFragment(3);
         } else if (id == R.id.como_lavar) {
             setFragment(5);
+        } else if (id == R.id.reciclar) {
+            setFragment(8);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -174,6 +177,13 @@ public class Inicio extends AppCompatActivity
                 Intent mainIntent = new Intent(Inicio.this, instrucciones_activity.class);
                 startActivity(mainIntent);
                 break;
+            case 8:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                reciclar crearCiclo = new reciclar();
+                fragmentTransaction.replace(R.id.fragment, crearCiclo);
+                fragmentTransaction.commit();
+                break;
 
         }
     }
@@ -198,7 +208,6 @@ public class Inicio extends AppCompatActivity
             startActivityForResult(intent, 0);
             return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }

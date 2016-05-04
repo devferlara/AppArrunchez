@@ -16,6 +16,10 @@
             android:icon="@drawable/instrucciones"
             android:title="Instrucciones del juego" />
         <item
+            android:id="@+id/reciclar"
+            android:icon="@drawable/instrucciones"
+            android:title="Cómo reciclar" />
+        <item
             android:id="@+id/alimentacion"
             android:icon="@drawable/alimentacion"
             android:title="Alimentacion saludable" />
