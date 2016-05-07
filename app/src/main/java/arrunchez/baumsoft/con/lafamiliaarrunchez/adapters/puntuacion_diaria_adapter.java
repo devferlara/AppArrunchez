@@ -94,48 +94,7 @@ public class puntuacion_diaria_adapter extends ArrayAdapter<model_calificacion_i
         ImageView imagen = (ImageView) v.findViewById(R.id.personaje_list);
         imagen.setImageResource(map.get(modelo.getId()));
 
-
-
-
         Log.d("Id persona", " " + modelo.getId() + " pos " + position);
-
-        /*
-        if (convertView == null) {
-            LayoutInflater inflator = activity.getLayoutInflater();
-            convertView = inflator.inflate(R.layout.list_result_item, null);
-
-            final model_calificacion_individual modelo = getItem(position);
-
-            ImageView imagen = (ImageView) convertView.findViewById(R.id.personaje_list);
-            imagen.setImageResource(map.get(modelo.getId()));
-
-
-
-            LineChartView chart = (LineChartView) convertView.findViewById(R.id.linechart);
-            LineSet dataset = new LineSet();
-
-            for (int i=0; i<modelo.getResultados().size(); i++) {
-
-                dataset.addPoint(modelo.getResultados().get(i).toString(), modelo.getResultados().get(i));
-            }
-
-            chart.addData(dataset);
-            chart.setXAxis(false)
-                    .setXLabels(XController.LabelPosition.OUTSIDE)
-                    .setYAxis(false)
-                    .setYLabels(YController.LabelPosition.NONE);
-            dataset.setDotsColor(Color.parseColor("#FEA300"));
-            dataset.setDotsStrokeColor(Color.parseColor("#FEA300"));
-            dataset.setDotsStrokeThickness(2);
-            dataset.setColor(Color.parseColor("#FEA300"));
-            chart.setAxisThickness(0);
-            chart.setAxisColor(Color.parseColor("#FFFFFF"));
-            chart.show();
-
-
-        }
-        return convertView;
-        */
 
         return v;
     }

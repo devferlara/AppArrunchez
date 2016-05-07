@@ -6,23 +6,13 @@
     tools:context="arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.agregar_participantes">
 
 
-    <ImageButton
-        android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFF"
-        android:scaleType="fitCenter"
-        android:src="@drawable/add"
-        android:visibility="gone" />
-
     <ImageView
         android:id="@+id/inicio_imagen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFF"
         android:scaleType="fitXY"
-        android:src="@drawable/inicio_imagen"
-        android:visibility="gone" />
+        android:src="@drawable/inicio_imagen"/>
 
 
 </LinearLayout>

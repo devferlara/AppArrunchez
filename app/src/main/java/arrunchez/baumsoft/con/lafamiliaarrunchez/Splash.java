@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Seeds;
@@ -20,18 +21,19 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(Splash.this, "arrunchez-db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
         new Seeds().seedsAllTables(db, false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Intent mainIntent = new Intent(Splash.this, bluetooth.class);
                 Intent mainIntent = new Intent(Splash.this, Inicio.class);
                 startActivity(mainIntent);
                 finish();
             }
         }, 1000);
+
 
 
     }

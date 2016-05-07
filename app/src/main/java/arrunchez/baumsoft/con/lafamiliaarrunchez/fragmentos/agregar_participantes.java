@@ -29,54 +29,12 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.ParticipantesDao;
 
 public class agregar_participantes extends Fragment {
 
-    private SQLiteDatabase db;
-    private ParticipantesDao pdao;
-
-    private static final int REQUEST_ENABLE_BT = 0;
-    private static final int REQUEST_DISCOVERABLE_BT = 0;
-    BluetoothDevice mBluetoothDevice;
-    BluetoothAdapter mBluetoothAdapter;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_agregar_participantes, container, false);
 
-
-        SharedPreferences prefs = null;
-        prefs = getActivity().getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", getActivity().MODE_PRIVATE);
-
-
-        ((Inicio) getActivity()).getSupportActionBar().setTitle("El tesoro de la familia Arrunchez");
-
-        if (prefs.getBoolean("firstrun", true)) {
-
-            ImageButton crear = (ImageButton) view.findViewById(R.id.add);
-            crear.setVisibility(View.VISIBLE);
-            crear.setImageResource(R.drawable.add);
-            crear.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((Inicio) getActivity()).iniciarDesdeFragment(1);
-                }
-            });
-
-            ((Inicio) getActivity()).getSupportActionBar().setTitle("El tesoro de la familia Arrunchez");
-
-
-        } else {
-
-            ImageView inicio = (ImageView) view.findViewById(R.id.inicio_imagen);
-            inicio.setVisibility(View.VISIBLE);
-
-        }
-
-        /*
-
-
-        */
 
         return view;
     }

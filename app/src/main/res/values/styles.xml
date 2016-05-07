@@ -10,8 +10,6 @@
         <item name="android:actionBarSize">64dp</item>
         <item name="actionBarSize">64dp</item>
 
-
-
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -29,8 +27,6 @@
     <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>
     </style>
-
-
 
     <style name="NavigationDrawerStyle">
         <item name="android:itemPadding">16sp</item>

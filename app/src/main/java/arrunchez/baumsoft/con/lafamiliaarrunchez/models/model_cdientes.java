@@ -5,16 +5,20 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez.models;
  */
 public class model_cdientes {
     private Long id;
-    private String title, descri;
+    private String titulo_armado, titulo, descripcion, comentarios;
 
-    public model_cdientes(Long id, String title, String descri) {
+    public model_cdientes(Long id, String titulo_armado, String titulo, String descripcion, String comentarios) {
         this.id = id;
-        this.title = title;
-        this.descri = descri;
+        this.titulo_armado = titulo_armado;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.comentarios = comentarios;
     }
 
     public Long getId() { return this.id; }
-    public String getTitle() { return this.title; }
-    public String getDescri() { return this.descri; }
+    public String getTitulo_armado() { return this.titulo_armado; }
+    public String getTitulo() { return this.titulo; }
+    public String getDescripcion() { return this.descripcion; }
+    public String getComentarios() { return this.comentarios; }
 
 }

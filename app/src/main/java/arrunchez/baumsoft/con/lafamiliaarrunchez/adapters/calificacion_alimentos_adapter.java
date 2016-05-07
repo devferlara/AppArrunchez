@@ -87,7 +87,7 @@ public class calificacion_alimentos_adapter extends ArrayAdapter<model_alimentos
             if(modelo.get_a3() == true){ logrados++; } else { fallados++; alerta.append("- Alimentos ricos en calcio "); }
             if(modelo.get_a4() == true){ logrados++; } else { fallados++; alerta.append("- Proteínas "); }
             if(modelo.get_a5() == true){ logrados++; } else { fallados++; alerta.append("- Cereales "); }
-            if(modelo.get_a6() == true){ logrados++; } else { fallados++; alerta.append("- Postres"); }
+            if(modelo.get_a6() == true){ logrados++; } else { fallados++; }
 
             alerta.append(".");
 

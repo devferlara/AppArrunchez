@@ -2,6 +2,8 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez.helpers;
 
 import android.content.Context;
 
+import java.util.List;
+
 import arrunchez.baumsoft.con.lafamiliaarrunchez.DaoAPP;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Last_score_foods;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Last_score_tale;
@@ -41,6 +43,27 @@ public class katana {
             Last_score_tale item = new Last_score_tale();
             item.setScore(new_value);
             DaoAPP.daoSession.getLast_score_taleDao().insert(item);
+        }
+
+    }
+
+    public String getTailScore(){
+        List<Last_score_tale> item = DaoAPP.daoSession.getLast_score_taleDao().loadAll();
+        if(item.size() != 0){
+            Last_score_tale score_model = item.get(item.size() - 1);
+            return score_model.getScore();
+        } else {
+            return "none";
+        }
+    }
+
+    public String getTeethScore(){
+        List<Last_score_teeth> item = DaoAPP.daoSession.getLast_score_teethDao().loadAll();
+        if(item.size() != 0){
+            Last_score_teeth score_model = item.get(item.size() - 1);
+            return score_model.getScore();
+        } else {
+            return "none";
         }
 
     }

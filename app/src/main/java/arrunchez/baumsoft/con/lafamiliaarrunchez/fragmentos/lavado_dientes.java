@@ -3,6 +3,7 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.CalimentosDao;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoSession;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.katana;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.models.ladientes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.models.model_dientes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.puntuacion_dia_alimentacion;
@@ -257,19 +259,22 @@ public class lavado_dientes extends Fragment {
         }
 
 
+
         if (total_final1 != 0 && total_final2 != 0) {
 
             bandera_llenar_alimentos = true;
-
+            katana kata = new katana();
             /* seccion 1 */
             float porcentaje1 = (total_logrado1 * 100) / total_final1;
             porcentaje_f_1 = porcentaje1;
             if (porcentaje1 <= 30) {
                 ((cuestionario) getContext()).prender("8 ");
+                //kata.saveScore(getContext(), 1, "8");
             }
 
             if (porcentaje1 > 30 && porcentaje1 < 80) {
                 ((cuestionario) getContext()).prender("5");
+                //kata.saveScore(getContext(), 1, "8");
             }
 
             if (porcentaje1 >= 80) {
@@ -283,14 +288,17 @@ public class lavado_dientes extends Fragment {
 
             if (porcentaje2 <= 30) {
                 ((cuestionario) getContext()).prender("7");
+                kata.saveScore(getActivity(), 2, "7");
             }
 
             if (porcentaje2 > 30 && porcentaje2 < 80) {
                 ((cuestionario) getContext()).prender("4");
+                kata.saveScore(getActivity(), 2, "4");
             }
 
             if (porcentaje2 >= 80) {
                 ((cuestionario) getContext()).prender("1");
+                kata.saveScore(getActivity(), 2, "1");
             }
             /* seccion 2 */
 
@@ -299,6 +307,9 @@ public class lavado_dientes extends Fragment {
                 bandera_leer_cuento = true;
             } else {
                 bandera_leer_cuento = false;
+                katana kati = new katana();
+                kati.saveScore(getActivity(), 3, "9");
+                ((cuestionario) getActivity()).prender("9");
             }
             /* seccion validacion */
 
@@ -315,34 +326,19 @@ public class lavado_dientes extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-
-            Bundle bundle = data.getExtras();
-            String estado = bundle.getString("estado");
-
-            Log.d("Estado traido", estado);
-
-            if (estado.equals("si")) {
-                ((cuestionario) getContext()).prender("3");
-            } else {
-                ((cuestionario) getContext()).prender("6");
-            }
-            ((cuestionario) getContext()).cambiar(3);
-
-        }
-
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (this.isVisible()) {
             if (isVisibleToUser) {
                 ((cuestionario) getActivity()).colorToolbar(new ColorDrawable(0xFF397BA2));
+
+                SharedPreferences prefs = getActivity().getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", getActivity().MODE_PRIVATE);
+                if (prefs.getBoolean("mostrarcepi", true)) {
+                    prefs.edit().putBoolean("mostrarcepi", false).commit();
+                    Toast.makeText(getActivity(), "Vas a calificar cepillado de los participantes", Toast.LENGTH_SHORT).show();
+                }
+
                 reportar_();
             }
         }

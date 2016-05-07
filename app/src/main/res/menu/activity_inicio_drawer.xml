@@ -17,7 +17,7 @@
             android:title="Instrucciones del juego" />
         <item
             android:id="@+id/reciclar"
-            android:icon="@drawable/instrucciones"
+            android:icon="@drawable/reciclaje"
             android:title="Cómo reciclar" />
         <item
             android:id="@+id/alimentacion"

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ public class crear_participante extends Fragment {
                     }
                 });
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
@@ -202,7 +204,8 @@ public class crear_participante extends Fragment {
                                         Intent mainintent = new Intent(getActivity(), cuestionario.class);
                                         mainintent.putExtra("pop", "si");
                                         startActivity(mainintent);
-                                        getActivity().finish();
+                                        ((Inicio) getActivity()).setFragment(0);
+                                        //getActivity().finish();
                                     }
                                 });
 
@@ -241,6 +244,7 @@ public class crear_participante extends Fragment {
         personaje4.setBackgroundResource(R.drawable.personaje4);
         personaje5.setBackgroundResource(R.drawable.personaje5);
     }
+
 
 
 }

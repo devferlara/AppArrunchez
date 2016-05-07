@@ -36,7 +36,6 @@ public class manejador_arduino {
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static String address = "98:D3:34:90:54:17";
     final int RECIEVE_MESSAGE = 1;
-    Handler h;
     private Activity activity;
     private ConnectedThread mConnectedThread;
     boolean estado_bt;
@@ -68,16 +67,6 @@ public class manejador_arduino {
         // when you attempt to connect and pass your message.
         btAdapter.cancelDiscovery();
 
-        h = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                switch (msg.what) {
-                    case RECIEVE_MESSAGE:                                                   // if receive massage
-
-                        break;
-                }
-            };
-        };
-
         // Establish the connection.  This will block until it connects.
         Log.d(TAG, "...Connecting...");
 
@@ -89,6 +78,7 @@ public class manejador_arduino {
             mConnectedThread.start();
 
         } catch (IOException e) {
+            estado_bt = false;
             try {
                 btSocket.close();
             } catch (IOException e2) {
@@ -137,10 +127,12 @@ public class manejador_arduino {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
+
+
         public ConnectedThread(BluetoothSocket socket) {
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
-
+            Log.d(TAG, "Conectado al ConnectedThread");
             // Get the input and output streams, using temp objects because
             // member streams are final
             try {
@@ -161,7 +153,6 @@ public class manejador_arduino {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);        // Get number of bytes and message in "buffer"
-                    h.obtainMessage(RECIEVE_MESSAGE, bytes, -1, buffer).sendToTarget();     // Send to message queue Handler
                 } catch (IOException e) {
                     break;
                 }
@@ -218,6 +209,18 @@ public class manejador_arduino {
             mConnectedThread.write(cadena);
         }
     }
+
+    public void desconectar() throws IOException {
+
+        /*
+        if(btSocket.isConnected()){
+            btSocket.close();
+        }
+        */
+
+    }
+
+
 
 
 }

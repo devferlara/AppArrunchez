@@ -11,11 +11,10 @@
         android:background="#7A47A1"
         android:orientation="vertical"
         android:padding="10dp">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Información del recordatorio"
+            android:text="Información"
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="22sp" />
@@ -25,34 +24,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
         android:weightSum="1">
 
-        <EditText
-            android:id="@+id/nombre"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="Nombre"
-            android:inputType="text" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/backbluetooth"
+            android:adjustViewBounds="true"
+            />
 
-        <EditText
-            android:id="@+id/direccion"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="Direccion"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/comentarios"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:height="50dp"
-            android:ems="10"
-            android:hint="Comentarios"
-            android:inputType="textMultiLine" />
-
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:text="Cargando el juego, por favor espere."/>
 
     </LinearLayout>
+
+
 </LinearLayout>

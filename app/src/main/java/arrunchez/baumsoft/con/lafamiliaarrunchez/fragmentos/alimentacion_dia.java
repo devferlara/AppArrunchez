@@ -2,6 +2,7 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.CalimentosDao;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoSession;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.katana;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.puntuacion_dia_alimentacion;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 import de.greenrobot.dao.query.Join;
@@ -236,7 +238,7 @@ public class alimentacion_dia extends Fragment {
                         loadCuestionario();
                     }
                 },
-                1000);
+                800);
 
 
         guardar_calificacion.setOnClickListener(new View.OnClickListener() {
@@ -344,20 +346,21 @@ public class alimentacion_dia extends Fragment {
 
 
             float porcentaje = (total_logrado * 100) / total_final;
-
+            katana kata = new katana();
             if (porcentaje <= 30) {
                 ((cuestionario) getContext()).prender("7");
+                kata.saveScore(getActivity(), 1, "7");
             }
 
             if (porcentaje > 30 && porcentaje < 80) {
                 ((cuestionario) getContext()).prender("4");
+                kata.saveScore(getActivity(), 1, "4");
             }
 
             if (porcentaje >= 80) {
                 ((cuestionario) getContext()).prender("1");
+                kata.saveScore(getActivity(), 1, "1");
             }
-
-            Log.d("Porcentaje prender", " " + porcentaje);
 
         }
     }
@@ -370,6 +373,13 @@ public class alimentacion_dia extends Fragment {
         if (this.isVisible()) {
             if (isVisibleToUser) {
                 ((cuestionario) getActivity()).colorToolbar(new ColorDrawable(0xFF7A41A4));
+
+                SharedPreferences prefs = getActivity().getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", getActivity().MODE_PRIVATE);
+                if (prefs.getBoolean("mostrarali", true)) {
+                    prefs.edit().putBoolean("mostrarali", false).commit();
+                    Toast.makeText(getActivity(), "Vas a calificar alimentación de los participantes", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
     }
