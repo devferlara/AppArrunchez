@@ -184,6 +184,7 @@ public class lavado_dientes extends Fragment {
                     if (bandera_leer_cuento) {
                         Intent intento = new Intent(getActivity(), cuento.class);
                         intento.putExtra("fecha", fecha_inicial);
+                        Log.d("fecha enviar", fecha_inicial);
                         getActivity().startActivityForResult(intento, 1);
                     } else {
                         Toast.makeText(getActivity(), "No pasaste, intenta mañana.", Toast.LENGTH_SHORT).show();
@@ -248,11 +249,6 @@ public class lavado_dientes extends Fragment {
 
             if (cmentos.getEstado() == true) {
                 total_logrado2++;
-            }
-
-            if (!bandera_fecha) {
-                fecha_inicial = cmentos.getCalificaciones().getDate();
-                bandera_fecha = true;
             }
 
             bandera_inicio_true = 1;

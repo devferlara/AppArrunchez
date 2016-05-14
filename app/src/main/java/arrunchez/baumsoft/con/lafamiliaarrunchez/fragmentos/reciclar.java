@@ -18,7 +18,7 @@ public class reciclar extends Fragment {
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_reciclar, container, false);
-        ((Inicio) getActivity()).getSupportActionBar().setTitle("Instrucciones del juego");
+        ((Inicio) getActivity()).getSupportActionBar().setTitle("Cómo reciclar");
 
         return view;
     }

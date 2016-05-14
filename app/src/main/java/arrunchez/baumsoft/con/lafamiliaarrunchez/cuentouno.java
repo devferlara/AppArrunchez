@@ -18,16 +18,43 @@ public class cuentouno extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cuentouno);
 
         Bundle extras = getIntent().getExtras();
         String cuento = extras.getString("cuento");
-        String cuento2 = extras.getString("cuento");
 
-        TextView texto = (TextView) findViewById(R.id.cuento_texto);
-        TextView texto2 = (TextView) findViewById(R.id.cuento_texto2);
-        texto.setText(cuento);
-        texto2.setText(cuento2);
+        switch (cuento){
+
+            case "0":
+                setContentView(R.layout.cuento_uno);
+                break;
+
+            case "1":
+                setContentView(R.layout.cuento_dos);
+                break;
+
+            case "2":
+                setContentView(R.layout.cuento_tres);
+                break;
+
+            case "3":
+                setContentView(R.layout.cuento_cuatro);
+                break;
+
+            case "4":
+                setContentView(R.layout.cuento_cinco);
+                break;
+
+            case "5":
+                setContentView(R.layout.cuento_seis);
+                break;
+
+        }
+
+
+
+        //TextView texto = (TextView) findViewById(R.id.cuento_texto);
+        //TextView texto2 = (TextView) findViewById(R.id.cuento_texto2);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -36,18 +63,16 @@ public class cuentouno extends AppCompatActivity {
         cuento_terminado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("estado", "si");
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-
             }
         });
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "fonts/Futura.ttf");
-        texto.setTypeface(myTypeface);
-        texto2.setTypeface(myTypeface);
+        //texto.setTypeface(myTypeface);
+        //texto2.setTypeface(myTypeface);
 
     }
 

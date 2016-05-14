@@ -208,7 +208,6 @@ public class alimentacion_dia extends Fragment {
         });
 
 
-        // conexion con la base de datos
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "arrunchez-db", null);
         db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);

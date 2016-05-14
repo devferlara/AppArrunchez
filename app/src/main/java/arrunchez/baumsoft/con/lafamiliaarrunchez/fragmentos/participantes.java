@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
@@ -47,6 +48,7 @@ public class participantes extends Fragment {
     SharedPreferences prefs = null;
     private CalimentosDao cadao;
     private ArrayList<Calificaciones> carry = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_participantes, container, false);
@@ -60,7 +62,7 @@ public class participantes extends Fragment {
         ParticipantesDao pdao = daoSession.getParticipantesDao();
         CalificacionesDao cd = daoSession.getCalificacionesDao();
 
-        QueryBuilder qb =  cd.queryBuilder();
+        QueryBuilder qb = cd.queryBuilder();
         qb.where(CalificacionesDao.Properties.Date.eq(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
         long row = qb.count();
 
@@ -94,6 +96,10 @@ public class participantes extends Fragment {
                     });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+
+
+            prefs.edit().putString("fechainicial", new SimpleDateFormat("yyyy-MM-dd").format(new Date())).commit();
+
         }
 
 
@@ -107,7 +113,7 @@ public class participantes extends Fragment {
         int cadena = 0;
         int[] textos = {R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5};
         int[] personajes = {R.id.per1, R.id.per2, R.id.per3, R.id.per4, R.id.per5};
-        for(Participantes  p : l) {
+        for (Participantes p : l) {
 
             ImageView imagen = (ImageView) rootView.findViewById(personajes[cadena]);
             imagen.setImageResource(map.get(p.getAvatars().getAvatar()));
@@ -118,7 +124,7 @@ public class participantes extends Fragment {
 
             cadena++;
 
-            if(row == 0) {
+            if (row == 0) {
                 cd.insert(new Calificaciones(null, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), p.getId()));
             }
 

@@ -80,12 +80,14 @@ public class puntuacion extends Fragment {
     private Boolean bandera_fecha;
     private CalidientesDao cdidao;
     public ArrayList<model_calificacion_individual> array_modelos = new ArrayList<>();
+    private View vista;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_puntuacion, container, false);
+        vista = view;
         calcular(view);
         return view;
 
@@ -336,7 +338,7 @@ public class puntuacion extends Fragment {
         if (this.isVisible()) {
             if (isVisibleToUser) {
                 ((cuestionario) getActivity()).colorToolbar(new ColorDrawable(0xFFFF8C09));
-
+                calcular(vista);
             }
         }
     }

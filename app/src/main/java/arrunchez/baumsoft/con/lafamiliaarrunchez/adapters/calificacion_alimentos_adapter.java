@@ -137,12 +137,11 @@ public class calificacion_alimentos_adapter extends ArrayAdapter<model_alimentos
 
             if(logrados != 6){
                 nombre.setText(modelo.getNombre() + " - Recomendaciones");
-                recomendaciones.setText("" + fallados);
             } else {
                 nombre.setText(modelo.getNombre() + " - Felicitaciones");
-                //recomendaciones.setVisibility(View.GONE);
                 alerta = new StringBuilder("Felicitaciones, lo hiciste bien.");
             }
+            recomendaciones.setText("" + logrados);
 
             final int resultado_logrados = logrados;
             final String cadena_alerta = alerta.toString();

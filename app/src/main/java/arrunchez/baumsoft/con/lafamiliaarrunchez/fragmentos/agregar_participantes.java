@@ -34,9 +34,10 @@ public class agregar_participantes extends Fragment {
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_agregar_participantes, container, false);
-
+        ((Inicio) getActivity()).getSupportActionBar().setTitle("El tesoro de la familia Arrunchez");
 
         return view;
+
     }
 
 
