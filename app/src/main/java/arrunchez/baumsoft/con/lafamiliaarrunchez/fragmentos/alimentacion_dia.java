@@ -245,7 +245,7 @@ public class alimentacion_dia extends Fragment {
             public void onClick(View v) {
                 if (isValid) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Deseas guardar estas calificaciones")
+                    builder.setMessage("¿Deseas guardar ésta información?")
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     cadao.insert(new Calimentos(null, check_agua.isChecked(), carry.get(0).getId(), 1));
@@ -301,7 +301,7 @@ public class alimentacion_dia extends Fragment {
         if (carry.size() > 0) {
             isValid = true;
             img_avatar.setImageResource(map.get(carry.get(0).getParticipantes().getAvatars().getAvatar()));
-            calificandoa.setText("Calificando a: " + carry.get(0).getParticipantes().getParticipante());
+            calificandoa.setText("Hoy " + carry.get(0).getParticipantes().getParticipante() + " comió:");
             calificados.setVisibility(View.GONE);
             calificar.setVisibility(View.VISIBLE);
         } else {

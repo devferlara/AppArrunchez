@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:text="Continuar"
                         android:textColor="#FFF"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,8 +128,8 @@
             android:fontFamily="sans-serif-condensed"
             android:textColor="#862861"
             android:textAlignment="center"
-            android:textSize="26sp"
-            android:text="Ya has calificado el cepillado de todos los participantes, debes esperar hasta mañana para continuar con el juego"/>
+            android:textSize="22sp"
+            android:text="Ya han ingresado los datos de cepillado de todos los participantes   ¿Qué desean hacer?."/>
 
         <LinearLayout
             android:layout_width="match_parent"

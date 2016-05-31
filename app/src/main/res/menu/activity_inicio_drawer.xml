@@ -26,11 +26,11 @@
         <item
             android:id="@+id/como_lavar"
             android:icon="@drawable/lavardientes"
-            android:title="Como lavar los dientes" />
+            android:title="Higiene oral" />
         <item
             android:id="@+id/caries"
             android:icon="@drawable/caries"
-            android:title="La Caries" />
+            android:title="Enfermedades de la encías" />
         <item
             android:id="@+id/calendario"
             android:icon="@drawable/calendario"

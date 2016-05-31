@@ -36,6 +36,7 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoSession;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.ParticipantesDao;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.katana;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.puntuacion_dia_alimentacion;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 import de.greenrobot.dao.query.Join;
@@ -129,6 +130,13 @@ public class participantes extends Fragment {
             }
 
 
+        }
+
+
+        katana katica = new katana();
+        String valor = katica.getTailScore();
+        if(!valor.equals("none")){
+            ((cuestionario)getActivity()).prender(valor);
         }
 
         return rootView;

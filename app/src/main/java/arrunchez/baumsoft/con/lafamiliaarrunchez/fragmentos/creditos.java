@@ -11,14 +11,13 @@ import android.view.ViewGroup;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.Inicio;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
 
-
-public class caries extends Fragment {
+public class creditos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_caries, container, false);
-        ((Inicio) getActivity()).getSupportActionBar().setTitle("Enfermedades de la encías");
+        final View view = inflater.inflate(R.layout.fragment_creditos, container, false);
+        ((Inicio) getActivity()).getSupportActionBar().setTitle("Créditos");
         return view;
     }
 }

@@ -115,6 +115,8 @@ public class Inicio extends AppCompatActivity
             setFragment(5);
         } else if (id == R.id.reciclar) {
             setFragment(8);
+        } else if (id == R.id.creditos) {
+            setFragment(9);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -182,6 +184,13 @@ public class Inicio extends AppCompatActivity
                 fragmentTransaction = fragmentManager.beginTransaction();
                 reciclar crearCiclo = new reciclar();
                 fragmentTransaction.replace(R.id.fragment, crearCiclo);
+                fragmentTransaction.commit();
+                break;
+            case 9:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                creditos crearcredito = new creditos();
+                fragmentTransaction.replace(R.id.fragment, crearcredito);
                 fragmentTransaction.commit();
                 break;
 

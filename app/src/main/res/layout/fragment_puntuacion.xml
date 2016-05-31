@@ -70,6 +70,16 @@
             android:text="Antes de ver los resultados debes completar el juego."/>
 
     </LinearLayout>
+    
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="¡Buenas noches!, Mañana continuaremos jugando."
+    android:id="@+id/texto_manana"
+    android:padding="5dp"
+    android:textSize="16sp"
+    android:textColor="@color/colorPrimary"
+    android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"

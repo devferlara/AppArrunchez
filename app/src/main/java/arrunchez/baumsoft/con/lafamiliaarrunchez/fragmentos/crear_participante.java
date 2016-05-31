@@ -73,7 +73,7 @@ public class crear_participante extends Fragment {
         // set title
         alertDialogBuilder.setTitle("Información");
         alertDialogBuilder
-                .setMessage("Debes crear a todos los personajes en una sola oportunidad. Luego de crearlos no podrás agregar más hasta que termine el juego debido al método del mismo.")
+                .setMessage("Crea los personajes para éste juego que tiene una duración de seis días.")
                 .setPositiveButton("Entendido",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
 

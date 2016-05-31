@@ -284,6 +284,9 @@ public class puntuacion extends Fragment {
                 chequear(dia4);
                 chequear(dia5);
                 chequear(dia6);
+                
+                TextView texto_mana = (TextView) view.findViewById(R.id.texto_manana);
+                texto_mana.setVisibility(View.GONE);
 
                 LinearLayout reiniciar_layout = (LinearLayout) view.findViewById(R.id.reiniciar);
                 reiniciar_layout.setVisibility(View.VISIBLE);

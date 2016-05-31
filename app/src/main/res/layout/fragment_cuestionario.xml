@@ -287,8 +287,8 @@
             android:fontFamily="sans-serif-condensed"
             android:textColor="#862861"
             android:textAlignment="center"
-            android:textSize="26sp"
-            android:text="Ya has calificado las comidas de todos los participantes, debes esperar hasta mañana para continuar con el juego."/>
+            android:textSize="22sp"
+            android:text="Ya han ingresado la alimentación de la familia  del día de hoy, ¿qué desean hacer?."/>
 
         <LinearLayout
             android:layout_width="match_parent"

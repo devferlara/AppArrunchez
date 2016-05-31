@@ -293,8 +293,6 @@ public class cuestionario extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("Request code", " " + requestCode);
-
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
 
@@ -313,7 +311,7 @@ public class cuestionario extends AppCompatActivity {
                         cambiar(4);
                     }
                 } else {
-                    Log.d("Data", "Viene null");
+
                 }
 
 

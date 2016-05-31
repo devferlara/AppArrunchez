@@ -65,8 +65,8 @@ public class cdientes_adapter extends PagerAdapter {
         descripcion_.setText(cd.getDescripcion());
 
         final String final_nombre = cd.getTitulo();
-        final String final_direccion = cd.getComentarios(); //cd.getDescripcion();
-        final String final_comentarios = cd.getDescripcion(); //cd.getComentarios();
+        final String final_direccion = cd.getComentarios();
+        final String final_comentarios = cd.getDescripcion();
 
         LinearLayout controlar = (LinearLayout) view.findViewById(R.id.controlar_click);
         controlar.setOnClickListener(new View.OnClickListener() {

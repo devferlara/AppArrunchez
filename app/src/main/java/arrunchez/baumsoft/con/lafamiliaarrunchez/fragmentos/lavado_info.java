@@ -19,7 +19,7 @@ public class lavado_info extends Fragment {
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_lavado_info, container, false);
-        ((Inicio) getActivity()).getSupportActionBar().setTitle("Lavado de dientes");
+        ((Inicio) getActivity()).getSupportActionBar().setTitle("Higiene oral");
         return view;
     }
 

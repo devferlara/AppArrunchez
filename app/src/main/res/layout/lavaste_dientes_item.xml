@@ -37,14 +37,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Papá"
-                android:textSize="16sp" />
-
         </LinearLayout>
     </LinearLayout>
 

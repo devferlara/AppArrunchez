@@ -152,7 +152,7 @@ public class lavado_dientes extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Deseas guardar estas calificaciones")
+                builder.setMessage("¿Deseas guardar ésta información?")
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 for (ladientes l : lds) {
@@ -265,12 +265,10 @@ public class lavado_dientes extends Fragment {
             porcentaje_f_1 = porcentaje1;
             if (porcentaje1 <= 30) {
                 ((cuestionario) getContext()).prender("8 ");
-                //kata.saveScore(getContext(), 1, "8");
             }
 
             if (porcentaje1 > 30 && porcentaje1 < 80) {
                 ((cuestionario) getContext()).prender("5");
-                //kata.saveScore(getContext(), 1, "8");
             }
 
             if (porcentaje1 >= 80) {
