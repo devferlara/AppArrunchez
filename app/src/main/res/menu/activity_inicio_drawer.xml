@@ -30,7 +30,7 @@
         <item
             android:id="@+id/caries"
             android:icon="@drawable/caries"
-            android:title="Enfermedades de la encías" />
+            android:title="Caries y enfermedad de encías" />
         <item
             android:id="@+id/calendario"
             android:icon="@drawable/calendario"

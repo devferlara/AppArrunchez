@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.List;
+
+import arrunchez.baumsoft.con.lafamiliaarrunchez.DaoAPP;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.Inicio;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
@@ -183,34 +186,47 @@ public class crear_participante extends Fragment {
 
                     if(!nombres.getText().toString().equals("")){
                         pdao.insert(new Participantes(null, nombres.getText().toString(), personajeElegido));
-                        nombres.setText("");
-                        reiniciarPersonajes(0);
+                        List<Participantes> participantes = DaoAPP.daoSession.getParticipantesDao().loadAll();
 
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                context);
+                        if (participantes.size() == 5){
+                            prefs.edit().putBoolean("firstrun", false).commit();
+                            Intent mainintent = new Intent(getActivity(), cuestionario.class);
+                            mainintent.putExtra("pop", "si");
+                            startActivity(mainintent);
+                            ((Inicio) getActivity()).setFragment(0);
+                        } else {
+                            nombres.setText("");
+                            reiniciarPersonajes(0);
 
-                        alertDialogBuilder.setTitle("Personajes");
-                        alertDialogBuilder
-                                .setMessage("Has agregado correctamente este personaje. ¿Deseas seguir agregando más personajes?")
-                                .setCancelable(false)
-                                .setPositiveButton("Agregar",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        personajeElegido = 0;
-                                    }
-                                })
-                                .setNegativeButton("Finalizar",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        prefs.edit().putBoolean("firstrun", false).commit();
-                                        Intent mainintent = new Intent(getActivity(), cuestionario.class);
-                                        mainintent.putExtra("pop", "si");
-                                        startActivity(mainintent);
-                                        ((Inicio) getActivity()).setFragment(0);
-                                        //getActivity().finish();
-                                    }
-                                });
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                    context);
 
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                            alertDialogBuilder.setTitle("Personajes");
+                            alertDialogBuilder
+                                    .setMessage("Has agregado correctamente este personaje. ¿Deseas seguir agregando más personajes?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Agregar",new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            personajeElegido = 0;
+                                        }
+                                    })
+                                    .setNegativeButton("Finalizar",new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            prefs.edit().putBoolean("firstrun", false).commit();
+                                            Intent mainintent = new Intent(getActivity(), cuestionario.class);
+                                            mainintent.putExtra("pop", "si");
+                                            startActivity(mainintent);
+                                            ((Inicio) getActivity()).setFragment(0);
+                                            //getActivity().finish();
+                                        }
+                                    });
+
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+
+
+
                     } else {
                         Toast.makeText(getActivity(), "Ingresa el nombre antes de guardar.", Toast.LENGTH_SHORT).show();
                     }
@@ -243,6 +259,7 @@ public class crear_participante extends Fragment {
         personaje3.setBackgroundResource(R.drawable.personaje3);
         personaje4.setBackgroundResource(R.drawable.personaje4);
         personaje5.setBackgroundResource(R.drawable.personaje5);
+
     }
 
 

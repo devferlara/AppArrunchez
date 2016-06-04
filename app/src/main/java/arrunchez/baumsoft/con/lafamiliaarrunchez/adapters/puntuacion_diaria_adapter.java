@@ -21,7 +21,9 @@ import com.db.chart.view.YController;
 import java.util.ArrayList;
 import java.util.List;
 
+import arrunchez.baumsoft.con.lafamiliaarrunchez.DaoAPP;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.models.model_alimentos;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.models.model_calificacion_individual;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.puntuacion_dia_alimentacion;
@@ -45,6 +47,7 @@ public class puntuacion_diaria_adapter extends ArrayAdapter<model_calificacion_i
         map.add(3, R.drawable.personaje3);
         map.add(4, R.drawable.personaje4);
         map.add(5, R.drawable.personaje5);
+
     }
 
     @Override
@@ -92,7 +95,8 @@ public class puntuacion_diaria_adapter extends ArrayAdapter<model_calificacion_i
         }
 
         ImageView imagen = (ImageView) v.findViewById(R.id.personaje_list);
-        imagen.setImageResource(map.get(modelo.getId()));
+        Participantes participante = DaoAPP.daoSession.getParticipantesDao().load(Long.valueOf(modelo.getId()));
+        imagen.setImageResource(map.get((int) participante.getAvatar_id()));
 
         Log.d("Id persona", " " + modelo.getId() + " pos " + position);
 

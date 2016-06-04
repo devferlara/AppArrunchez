@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
@@ -23,12 +24,18 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.models.ladientes;
 public class ladientes_adapter extends BaseAdapter {
 
     private Activity activity;
-
+    private Map<String, Integer> map = new HashMap<String, Integer>();
     private ArrayList<ladientes> lds = new ArrayList<>();
 
     public ladientes_adapter(Activity activity, ArrayList<ladientes> ldi) {
         this.activity = activity;
         this.lds = ldi;
+
+        map.put("Papa", R.drawable.personaje1);
+        map.put("mama", R.drawable.personaje2);
+        map.put("niño", R.drawable.personaje3);
+        map.put("abuela", R.drawable.personaje4);
+        map.put("hada", R.drawable.personaje5);
 
     }
 
@@ -59,6 +66,7 @@ public class ladientes_adapter extends BaseAdapter {
 
             final ladientes ld = (ladientes) getItem(position);
             nombres.setText(ld.getNombres());
+            personaje.setImageResource(map.get(ld.getAvatar()));
 
             check_parti.setOnClickListener(new View.OnClickListener() {
                 @Override
