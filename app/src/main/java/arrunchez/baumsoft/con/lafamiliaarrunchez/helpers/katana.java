@@ -47,6 +47,16 @@ public class katana {
 
     }
 
+    public String getFoodScore(){
+        List<Last_score_foods> item = DaoAPP.daoSession.getLast_score_foodsDao().loadAll();
+        if(item.size() != 0){
+            Last_score_foods score_model = item.get(item.size() - 1);
+            return score_model.getScore();
+        } else {
+            return "none";
+        }
+    }
+
     public String getTailScore(){
         List<Last_score_tale> item = DaoAPP.daoSession.getLast_score_taleDao().loadAll();
         if(item.size() != 0){

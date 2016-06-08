@@ -22,8 +22,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 
 /**
  * Created by baumsoft on 28/04/16.
@@ -34,17 +37,21 @@ public class manejador_arduino {
     private BluetoothSocket btSocket = null;
     private static final String TAG = "bluetooth2";
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private static String address = "98:D3:34:90:54:17";
+    private static String address;
     final int RECIEVE_MESSAGE = 1;
     private Activity activity;
+    private BluetoothDevice device;
     private ConnectedThread mConnectedThread;
     boolean estado_bt;
     private Context contexto;
+    private String mac_device;
 
-    public void conectar(Context contexto_, Activity actividad){
+    public void conectar(Activity actividad, String ma){
 
-        contexto = contexto_;
+        contexto = actividad;
         activity = actividad;
+
+        mac_device = ma;
 
         estado_bt = false;
 
@@ -55,7 +62,10 @@ public class manejador_arduino {
     }
 
     private void resumir(){
-        BluetoothDevice device = btAdapter.getRemoteDevice(address);
+
+        Log.d("Resumir", "resumido");
+
+        device = btAdapter.getRemoteDevice(mac_device);
 
         try {
             btSocket = createBluetoothSocket(device);
@@ -169,6 +179,14 @@ public class manejador_arduino {
                 Log.d(TAG, "...Error data send: " + e.getMessage() + "...");
             }
         }
+
+        public void cancel(){
+            try {
+                btSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -212,11 +230,7 @@ public class manejador_arduino {
 
     public void desconectar() throws IOException {
 
-        /*
-        if(btSocket.isConnected()){
-            btSocket.close();
-        }
-        */
+        mConnectedThread.cancel();
 
     }
 

@@ -73,6 +73,9 @@ public class arrunchezdaogen {
         last_score_tale.addIdProperty().autoincrement();
         last_score_tale.addStringProperty("score");
 
+        Entity mac_bluetooth = schema.addEntity("Mac_bluetooth");
+        mac_bluetooth.addIdProperty();
+        mac_bluetooth.addStringProperty("mac");
 
     }
 }

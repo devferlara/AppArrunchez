@@ -198,8 +198,6 @@ public class lavado_dientes extends Fragment {
             }
         });
 
-        //db.close();
-
         return view;
     }
 

@@ -1,8 +1,14 @@
 package arrunchez.baumsoft.con.lafamiliaarrunchez;
 
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,8 +28,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.*;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Mac_bluetooth;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Seeds;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed.cuestionario;
 
@@ -31,7 +45,12 @@ public class Inicio extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+    private manejador_arduino manejador;
     SharedPreferences prefs = null;
+    ProgressDialog progress;
+    private String temp_bluetooth;
+    private boolean bandera_bluetooth;
+    private ArrayList<String> mDeviceList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +64,8 @@ public class Inicio extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        bandera_bluetooth = false;
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
@@ -53,13 +74,154 @@ public class Inicio extends AppCompatActivity
 
         prefs = getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", MODE_PRIVATE);
 
+        IntentFilter intent = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        registerReceiver(mPairReceiver, intent);
+
+        List<Mac_bluetooth> lista_mac = DaoAPP.daoSession.getMac_bluetoothDao().loadAll();
+        if (lista_mac.size() == 0) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Inicio.this);
+            alertDialog.setTitle("Información");
+            alertDialog.setMessage("Aún no has vinculado ningún dispositivo con el App. ¿Deseas buscar uno en este momento?");
+            alertDialog.setCancelable(false);
+            // Setting Positive "Yes" Button
+            alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    if (mBluetoothAdapter.isEnabled()) {
+                        progress = ProgressDialog.show(Inicio.this, "Información",
+                                "Buscando dispositivos, por favor espere.", true);
+
+                        pairbluetooth();
+                    } else {
+                        Intent intentBtEnabled = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        int REQUEST_ENABLE_BT = 1;
+                        startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT);
+                    }
+
+                }
+            });
+
+            // Setting Negative "NO" Button
+            alertDialog.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            // Showing Alert Message
+            alertDialog.show();
+        }
+
+    }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                //discovery starts, we can show progress dialog or perform other tasks
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                //discovery finishes, dismis progress dialog
+                if(!bandera_bluetooth){
+                    if (progress.isShowing())
+                        progress.dismiss();
+                    Toast.makeText(Inicio.this, "No hemos encontrado dispositivos.", Toast.LENGTH_LONG).show();
+                }
+            } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = (BluetoothDevice) intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                if (device.getName() != null) {
+                    if (device.getName().equals("HC-05")) {
+                        if (progress.isShowing())
+                            progress.dismiss();
+                        bandera_bluetooth = true;
+                        Toast.makeText(Inicio.this, "Introduce el código: 1234", Toast.LENGTH_LONG).show();
+                        pairDevice(device);
+                    }
+                }
+
+            }
+        }
+    };
+
+    private void pairDevice(BluetoothDevice device) {
+        try {
+            Method method = device.getClass().getMethod("createBond", (Class[]) null);
+            method.invoke(device, (Object[]) null);
+            temp_bluetooth = device.getAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private final BroadcastReceiver mPairReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                final int state        = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
+                final int prevState    = intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE, BluetoothDevice.ERROR);
+                if (state == BluetoothDevice.BOND_BONDED && prevState == BluetoothDevice.BOND_BONDING) {
+                    Mac_bluetooth nuevo = new Mac_bluetooth();
+                    nuevo.setMac(temp_bluetooth);
+                    DaoAPP.daoSession.getMac_bluetoothDao().insert(nuevo);
+                    Toast.makeText(Inicio.this, "Fantástico ha sido vinculado exitosamente.", Toast.LENGTH_LONG).show();
+                    manejador = new manejador_arduino();
+                    manejador.conectar(Inicio.this, temp_bluetooth);
+                    manejador.alumbrar("1");
+                    manejador.alumbrar("A");
+
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    manejador.alumbrar("1");
+                                    manejador.alumbrar("A");
+                                    try {
+                                        manejador.desconectar();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            300);
+
+                } else if (state == BluetoothDevice.BOND_NONE && prevState == BluetoothDevice.BOND_BONDED){
+
+                }
+
+            }
+        }
+    };
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                pairbluetooth();
+            } else if (resultCode == RESULT_CANCELED) {
+            }
+        }
+    }
+
+    private void pairbluetooth() {
+
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        IntentFilter filter = new IntentFilter();
+
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+
+        registerReceiver(mReceiver, filter);
+        adapter.startDiscovery();
 
     }
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
-
+        super.onResume();
     }
 
     @Override
@@ -90,8 +252,8 @@ public class Inicio extends AppCompatActivity
 
     }
 
+    public void ayuda() {
 
-    public void ayuda(){
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

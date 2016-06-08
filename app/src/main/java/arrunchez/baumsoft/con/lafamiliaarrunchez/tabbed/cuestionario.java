@@ -3,6 +3,8 @@ package arrunchez.baumsoft.con.lafamiliaarrunchez.tabbed;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -41,7 +44,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import arrunchez.baumsoft.con.lafamiliaarrunchez.DaoAPP;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.cuento;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.R;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.alimentacion_dia;
@@ -50,6 +55,7 @@ import arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.participantes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.fragmentos.puntuacion;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoMaster;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.DaoSession;
+import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Mac_bluetooth;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.Participantes;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.gendao.ParticipantesDao;
 import arrunchez.baumsoft.con.lafamiliaarrunchez.helpers.CustomViewPager;
@@ -78,6 +84,16 @@ public class cuestionario extends AppCompatActivity {
         constructor.show();
         constructor.setCancelable(false);
 
+        String mac_pasar = "00:00:00:00:00:00";
+        List<Mac_bluetooth> lista_mac = DaoAPP.daoSession.getMac_bluetoothDao().loadAll();
+        if(lista_mac.size() != 0){
+            final Mac_bluetooth mac = lista_mac.get(lista_mac.size() - 1);
+            mac_pasar = mac.getMac().toString();
+        }
+
+        Log.d("Imprimir en", mac_pasar);
+
+        final String mac_final = mac_pasar;
 
         setTitle("El tesoro de la familia Arrunchez");
 
@@ -85,7 +101,7 @@ public class cuestionario extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         manejador = new manejador_arduino();
-                        manejador.conectar(cuestionario.this, cuestionario.this);
+                        manejador.conectar(cuestionario.this, mac_final);
 
                         toolbar = (Toolbar) findViewById(R.id.toolbar);
                         setSupportActionBar(toolbar);
@@ -98,7 +114,6 @@ public class cuestionario extends AppCompatActivity {
                         mViewPager = (CustomViewPager) findViewById(R.id.container);
                         mViewPager.setAdapter(mSectionsPagerAdapter);
                         mViewPager.setPagingEnabled(true);
-
 
                         tabLayout = (TabLayout) findViewById(R.id.tabs);
                         tabLayout.setupWithViewPager(mViewPager);
@@ -136,7 +151,6 @@ public class cuestionario extends AppCompatActivity {
                             }
                         });
 
-
                         int[] imagenes = {R.drawable.tabuno, R.drawable.tabdos, R.drawable.tabtres, R.drawable.tabcuatro};
                         String[] nombres = {"Participantes", "Alimentación", "Lavado de dientes", "Puntuación"};
 
@@ -153,13 +167,16 @@ public class cuestionario extends AppCompatActivity {
                         katana kata = new katana();
                         String score_tail = kata.getTailScore();
                         String score_teeth = kata.getTeethScore();
+                        String score_food = kata.getFoodScore();
                         prender(score_tail);
                         prender(score_teeth);
+                        prender(score_food);
+                        Toast.makeText(cuestionario.this, "Score Food " + score_teeth, Toast.LENGTH_LONG).show();
+
 
                     }
                 },
                 500);
-
 
     }
 
@@ -282,11 +299,6 @@ public class cuestionario extends AppCompatActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        try {
-            manejador.desconectar();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
