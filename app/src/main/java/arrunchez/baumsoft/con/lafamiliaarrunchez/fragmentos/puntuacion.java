@@ -148,7 +148,6 @@ public class puntuacion extends Fragment {
 
                 if (cmentos.getAlimentos().getId() == 6) {
 
-
                     cdidao = daoSession.getCalidientesDao();
                     QueryBuilder<Calidientes> qbcd = cdidao.queryBuilder();
                     Join cjoin = qbcd.join(CalidientesDao.Properties.Calificacion_id, Calificaciones.class);
@@ -304,7 +303,16 @@ public class puntuacion extends Fragment {
                                         editor.clear();
                                         editor.commit();
 
-                                        clearApplicationData();
+                                        db.close();
+
+                                        DaoAPP.daoSession.getCalidientesDao().deleteAll();
+                                        DaoAPP.daoSession.getCalificacionesDao().deleteAll();
+                                        DaoAPP.daoSession.getCalimentosDao().deleteAll();
+                                        DaoAPP.daoSession.getLast_score_foodsDao().deleteAll();
+                                        DaoAPP.daoSession.getLast_score_taleDao().deleteAll();
+                                        DaoAPP.daoSession.getLast_score_teethDao().deleteAll();
+                                        DaoAPP.daoSession.getMac_bluetoothDao().deleteAll();
+                                        DaoAPP.daoSession.getParticipantesDao().deleteAll();
 
                                         Intent i = new Intent(getActivity(), Splash.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -346,19 +354,6 @@ public class puntuacion extends Fragment {
         }
     }
 
-    public void clearApplicationData() {
-        File cache = getActivity().getCacheDir();
-        File appDir = new File(cache.getParent());
-        if (appDir.exists()) {
-            String[] children = appDir.list();
-            for (String s : children) {
-                if (!s.equals("lib")) {
-                    deleteDir(new File(appDir, s));
-
-                }
-            }
-        }
-    }
 
     public static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {

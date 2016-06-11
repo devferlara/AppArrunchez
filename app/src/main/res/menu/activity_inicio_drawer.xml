@@ -8,13 +8,13 @@
             android:icon="@drawable/inicio"
             android:title="Inicio" />
         <item
-            android:id="@+id/tesoro"
-            android:icon="@drawable/familia"
-            android:title="El tesoro de la familia Arrunchez" />
-        <item
             android:id="@+id/instrucciones"
             android:icon="@drawable/instrucciones"
             android:title="Instrucciones del juego" />
+        <item
+            android:id="@+id/tesoro"
+            android:icon="@drawable/familia"
+            android:title="El tesoro de la familia Arrunchez" />
         <item
             android:id="@+id/reciclar"
             android:icon="@drawable/reciclaje"

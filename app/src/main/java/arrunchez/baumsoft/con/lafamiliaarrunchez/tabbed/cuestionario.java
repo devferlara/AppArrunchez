@@ -91,8 +91,6 @@ public class cuestionario extends AppCompatActivity {
             mac_pasar = mac.getMac().toString();
         }
 
-        Log.d("Imprimir en", mac_pasar);
-
         final String mac_final = mac_pasar;
 
         setTitle("El tesoro de la familia Arrunchez");
@@ -171,7 +169,9 @@ public class cuestionario extends AppCompatActivity {
                         prender(score_tail);
                         prender(score_teeth);
                         prender(score_food);
-                        Toast.makeText(cuestionario.this, "Score Food " + score_teeth, Toast.LENGTH_LONG).show();
+                        Log.d("Score Tail", score_tail);
+                        Log.d("Score Food", score_food);
+                        Log.d("Score Teeth", score_teeth);
 
 
                     }

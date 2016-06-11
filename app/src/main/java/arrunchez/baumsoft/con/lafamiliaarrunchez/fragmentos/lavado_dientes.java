@@ -262,15 +262,18 @@ public class lavado_dientes extends Fragment {
             float porcentaje1 = (total_logrado1 * 100) / total_final1;
             porcentaje_f_1 = porcentaje1;
             if (porcentaje1 <= 30) {
-                ((cuestionario) getContext()).prender("8 ");
+                ((cuestionario) getContext()).prender("8");
+                kata.saveScore(getActivity(), 2, "8");
             }
 
             if (porcentaje1 > 30 && porcentaje1 < 80) {
                 ((cuestionario) getContext()).prender("5");
+                kata.saveScore(getActivity(), 2, "5");
             }
 
             if (porcentaje1 >= 80) {
                 ((cuestionario) getContext()).prender("2");
+                kata.saveScore(getActivity(), 2, "2");
             }
             /* seccion 1 */
 
@@ -280,17 +283,17 @@ public class lavado_dientes extends Fragment {
 
             if (porcentaje2 <= 30) {
                 ((cuestionario) getContext()).prender("7");
-                kata.saveScore(getActivity(), 2, "7");
+                kata.saveScore(getActivity(), 1, "7");
             }
 
             if (porcentaje2 > 30 && porcentaje2 < 80) {
                 ((cuestionario) getContext()).prender("4");
-                kata.saveScore(getActivity(), 2, "4");
+                kata.saveScore(getActivity(), 1, "4");
             }
 
             if (porcentaje2 >= 80) {
                 ((cuestionario) getContext()).prender("1");
-                kata.saveScore(getActivity(), 2, "1");
+                kata.saveScore(getActivity(), 1, "1");
             }
             /* seccion 2 */
 
