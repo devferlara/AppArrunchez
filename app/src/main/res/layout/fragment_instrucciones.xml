@@ -17,13 +17,19 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:adjustViewBounds="true"
-                android:src="@drawable/instrucciones_images_"
+                android:src="@drawable/instrucciones_uno"
                 android:layout_height="wrap_content" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:adjustViewBounds="true"
-                android:src="@drawable/instrucciones_images"
+                android:src="@drawable/instrucciones_dos"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/instrucciones_tres"
                 android:layout_height="wrap_content" />
 
             <!--

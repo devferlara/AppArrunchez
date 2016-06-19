@@ -230,7 +230,8 @@ public class manejador_arduino {
 
     public void desconectar() throws IOException {
 
-        mConnectedThread.cancel();
+        if(mConnectedThread != null)
+            mConnectedThread.cancel();
 
     }
 

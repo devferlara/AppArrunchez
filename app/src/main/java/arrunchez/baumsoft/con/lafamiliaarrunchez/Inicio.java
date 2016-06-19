@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -55,6 +56,7 @@ public class Inicio extends AppCompatActivity
     private ArrayList<String> mDeviceList = new ArrayList<String>();
     private final static int REQUEST_ENABLE_BT=3;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    int currentapiVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class Inicio extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
         bandera_bluetooth = false;
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -76,15 +80,30 @@ public class Inicio extends AppCompatActivity
 
         setFragment(0);
 
-        prefs = getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", MODE_PRIVATE);
+        new AlertDialog.Builder(Inicio.this)
+                .setTitle("Información")
+                .setMessage("¿Tienes un muñeco de Fantástico?")
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        if(!mBluetoothAdapter.isEnabled())
+                        {
+                            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                        } else {
+                            empezar_integracion();
+                        }
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
 
-        if(!mBluetoothAdapter.isEnabled())
-        {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
-            empezar_integracion();
-        }
+        prefs = getSharedPreferences("arrunchez.baumsoft.con.lafamiliaarrunchez", MODE_PRIVATE);
 
     }
 
@@ -201,7 +220,6 @@ public class Inicio extends AppCompatActivity
                             if (progress.isShowing())
                                 progress.dismiss();
                             bandera_bluetooth = true;
-                            Toast.makeText(Inicio.this, "Introduce el código: 1234", Toast.LENGTH_LONG).show();
                             pairDevice(device);
                         }
 
@@ -214,9 +232,21 @@ public class Inicio extends AppCompatActivity
 
     private void pairDevice(BluetoothDevice device) {
         try {
-            Method method_ = device.getClass().getMethod("createBond", (Class[]) null);
-            method_.invoke(device, (Object[]) null);
+
+            if(currentapiVersion <= 18){
+                Toast.makeText(Inicio.this, "Selecciona el dispositivo HC-05 e introduce el código: 1234", Toast.LENGTH_LONG).show();
+                Intent btSettingsIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                btSettingsIntent.putExtra("btcontroller", device.getAddress());
+                btSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(btSettingsIntent, 1);
+            } else {
+                Toast.makeText(Inicio.this, "Introduce el código: 1234", Toast.LENGTH_LONG).show();
+                Method method_ = device.getClass().getMethod("createBond", (Class[]) null);
+                method_.invoke(device, (Object[]) null);
+            }
+
             temp_bluetooth = device.getAddress();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,60 +265,70 @@ public class Inicio extends AppCompatActivity
 
     private final BroadcastReceiver mPairReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+
+            View view = Inicio.this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+
             String action = intent.getAction();
 
             if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
                 final int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
                 final int prevState = intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE, BluetoothDevice.ERROR);
-                View view = Inicio.this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+
+
                 if (state == BluetoothDevice.BOND_BONDED) {
                     Mac_bluetooth nuevo = new Mac_bluetooth();
                     nuevo.setMac(temp_bluetooth);
                     DaoAPP.daoSession.getMac_bluetoothDao().insert(nuevo);
-                    Toast.makeText(Inicio.this, "Fantástico ha sido vinculado exitosamente.", Toast.LENGTH_LONG).show();
-                    manejador = new manejador_arduino();
-                    manejador.conectar(Inicio.this, temp_bluetooth);
-                    manejador.alumbrar("1");
-                    manejador.alumbrar("A");
 
-                    new android.os.Handler().postDelayed(
-                            new Runnable() {
-                                public void run() {
-                                    manejador.alumbrar("1");
-                                    manejador.alumbrar("A");
+                    if(currentapiVersion <= 18){
+                        finishActivity(1);
+                        Toast.makeText(Inicio.this, "Fantástico ha sido vinculado exitosamente.", Toast.LENGTH_LONG).show();
+                    } else {
 
-                                    new android.os.Handler().postDelayed(
-                                            new Runnable() {
-                                                public void run() {
-                                                    manejador.alumbrar("1");
-                                                    manejador.alumbrar("A");
+                        Toast.makeText(Inicio.this, "Fantástico ha sido vinculado exitosamente." + temp_bluetooth, Toast.LENGTH_LONG).show();
+                        manejador = new manejador_arduino();
+                        manejador.conectar(Inicio.this, temp_bluetooth);
+                        manejador.alumbrar("1");
+                        manejador.alumbrar("A");
 
-                                                    new android.os.Handler().postDelayed(
-                                                            new Runnable() {
-                                                                public void run() {
-                                                                    manejador.alumbrar("1");
-                                                                    manejador.alumbrar("A");
-                                                                    try {
-                                                                        manejador.desconectar();
-                                                                    } catch (IOException e) {
-                                                                        e.printStackTrace();
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        manejador.alumbrar("1");
+                                        manejador.alumbrar("A");
+
+                                        new android.os.Handler().postDelayed(
+                                                new Runnable() {
+                                                    public void run() {
+                                                        manejador.alumbrar("1");
+                                                        manejador.alumbrar("A");
+
+                                                        new android.os.Handler().postDelayed(
+                                                                new Runnable() {
+                                                                    public void run() {
+                                                                        manejador.alumbrar("1");
+                                                                        manejador.alumbrar("A");
+                                                                        try {
+                                                                            manejador.desconectar();
+                                                                        } catch (IOException e) {
+                                                                            e.printStackTrace();
+                                                                        }
                                                                     }
-                                                                }
-                                                            },
-                                                            400);
-                                                }
-                                            },
-                                            400);
+                                                                },
+                                                                400);
+                                                    }
+                                                },
+                                                400);
 
-                                }
-                            },
-                            400);
+                                    }
+                                },
+                                400);
 
-
+                    }
 
                 } else if (state == BluetoothDevice.BOND_NONE && prevState == BluetoothDevice.BOND_BONDED) {
 
